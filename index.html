@@ -12,14 +12,14 @@
             
         <div id="app">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">After School Clubs</a>
+                <a class="navbar-brand" href='index.html'>After School Clubs</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                   <ul class="navbar-nav">
                     <li class="nav-item active">
-                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -33,12 +33,21 @@
                     </li>
                   </ul>
                 </div>
-              </nav>
-
-              <div>
-                  
+            </nav><br><br>
+            <div class="row row-cols-1 row-cols-md-3">
+                <div class="col mb-4" v-for='product in products'>
+                  <div class="card">
+                    <img v-bind:src="product.img" class="card-img-top">
+                    <div class="card-body">
+                      <h5 class="card-title">NAME: {{product.title}}</h5>
+                      <p class="card-text">PRICE: {{product.price}}</p>
+                      <p class="card-text">SAPCES: {{product.stock}}</p>
+                      <button value='product.title'>Add to Cart</button>
+                    </div>
+                  </div>
+                </div>
               </div>
-        </div>  
+        </div>
         <script>
             let store = new Vue({
                 el: '#app',
