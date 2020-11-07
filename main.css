@@ -1,9 +1,50 @@
 body{
-    background-color: white;
+    margin: 0;
+    padding: 0;
+    background-color: teal;
+    font-style: sans-serif;
 }
 h1{
     position: absolute;
     margin-left: 40%;
-    color: teal;
+    color: lightgreen;
     border-color: violet;
+}
+.box{
+    position: absolute;
+    top: 38%;
+    left: 12%;
+    transform: translate(-50%, -70%);
+    padding: 20px;
+    box-sizing: border-box;
+    background: yellow;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+}
+.box:hover{
+    box-shadow: 0 15px 30px rgba(0,0,0,.5);
+}
+.box .imgBx{
+    width: 180px;
+    flex: 150px;
+}
+
+.box .imgBx img{
+    max-width: 100%;
+}
+.box .content{
+    padding-left: 20px;
+}
+.box .content h2{
+    margin: 0;
+    padding-top: 10px;
+    padding-left: 0;
+    color: black;
+    font-size: 20px;
+}
+.box .content p{
+    margin: 0;
+    padding: 10px 0 0;
+    text-align: justify;
+    color: black;
 }
