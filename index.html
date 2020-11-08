@@ -21,28 +21,36 @@
                     <li class="nav-item active">
                       <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sort options
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Price</a>
-                        <a class="dropdown-item" href="#">Stock</a>
-                        <a class="dropdown-item" href="#">Location</a>
-                      </div>
-                    </li>
+                    <select v-on:change='sortEvent' >
+                        <li class="nav-item dropdown">    
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <option class="dropdown-item"><a>Sort by</a></option>
+                                <option class="dropdown-item"><a>Price</a></option>
+                                <option class="dropdown-item"><a>Stock</a></option>
+                                <option class="dropdown-item"><a>Location</a></option>
+                                <option class="dropdown-item"><a>Ascending</a></option>
+                                <option class="dropdown-item"><a>Descending</a></option>
+                          </div>     
+                        </li>
+                    </select>
+                    
                   </ul>
                 </div>
             </nav><br><br>
-            <div class="row row-cols-1 row-cols-md-3">
+            <div class="row row-cols-1 row-cols-md-3" style="margin-left: 6%;">
                 <div class="col mb-4" v-for='product in products'>
-                  <div class="card">
-                    <img v-bind:src="product.img" class="card-img-top">
+                  <div class="card" style="width: 20rem;">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <img class="card-img-top embed-responsive-item" v-bind:src="product.img"/>
+                     </div>
                     <div class="card-body">
                       <h5 class="card-title">NAME: {{product.title}}</h5>
-                      <p class="card-text">PRICE: {{product.price}}</p>
+                      <p class="card-text">PRICE: {{product.price}} DHS</p>
                       <p class="card-text">SAPCES: {{product.stock}}</p>
-                      <button value='product.title'>Add to Cart</button>
+                      <div class='text-center'>
+                        <button class='btn btn-primary' value='product.title'>Add to Cart</button>
+                      </div>
+                     
                     </div>
                   </div>
                 </div>
@@ -54,6 +62,23 @@
                 data:{
                     sitename: "After School Activities",
                     products: subjects
+                },
+                methods: {
+                    sortEvent(event) {
+                        if(event.target.value === "Price"){
+                            this.products.sort((a,b) => a.price > b.price ? 1:-1);
+                        }
+                        if(event.target.value === "Stock"){
+                            this.products.sort((a,b) => a.stock > b.stock ? 1:-1);
+                        }
+                        if(event.target.value === "Ascending"){
+                            this.products.sort((a,b)=> a.title > b.title? 1:-1);
+                        }
+                        if(event.target.value === "Descending"){
+                            this.products.sort((a,b)=> a.title < b.title? 1:-1);
+                        }
+
+                    }
                 }
             })
         </script>
