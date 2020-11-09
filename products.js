@@ -83,7 +83,7 @@ let subjects = [
         id: 1011,
         title: "Law Club",
         price: 650,
-        img:'https://lh3.googleusercontent.com/proxy/xef7g9bzUIZFa_aA8ngZRA-DNRNfQc96YAXXi2UYKSpn4l918jtlxP6W0dNeyythJEaeLM-XZ1Sz500jURPmGyJndiRt1dBYUQ9uTsWXOiyroUI0WitQuXEJa8UluQI',
+        img:'https://pbs.twimg.com/profile_images/533260642858176512/pD3g2L5r_400x400.jpeg',
         stock: 3,
         location: "Barsha"
     },

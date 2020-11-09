@@ -75,9 +75,9 @@
                     <tbody>
                       <tr v-for='item in cart'>
                         <td><button class='btn btn-danger' v-on:click="removeFromCart(item)">Remove</button></td>
-                        <td class='product'>{{item.title}}</td>
+                        <td>{{item.title}}</td>
                         <td>{{item.price}}</td>
-                        <td class='quant'>{{correctQuantity(item)}}</td>
+                        <td class='quan'>1</td>
                       </tr>
                     </tbody>
                   </table>
@@ -116,15 +116,30 @@
 
                     },
                     addToCart(product){
-                        this.cart.push(product);
-                        product.stock--;
+                        var quan = document.querySelectorAll('.quan');
+                        if(this.cart.includes(product)){
+                            for(var i=0; i < quan.length;i++){
+                                quan[i].innerText++;
+                            }
+                            product.stock--;
+                        }else{
+                            this.cart.push(product);
+                            for(var i=0; i < quan.length;i++){
+                                quan[i].innerText++;
+                            }
+                            product.stock--;
+                        }
                     },
                     removeFromCart(item){
+                        var quan = document.querySelectorAll('.quan');
                         var indexOfItem = this.cart.indexOf(item);
-                        this.cart.splice(indexOfItem, 1);
-                    },
-                    correctQuantity(item){
-                        var findProduct = this.cart.find(o => o.id === item.id);
+                        for(var i=0; i < quan.length;i++){
+                            if(quan[i].innerText === '1'){
+                                this.cart.splice(indexOfItem, 1);
+                            }else{
+                                quan[i].innerText--;
+                            }           
+                        }
                     }
                 }
             })
