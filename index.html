@@ -95,17 +95,13 @@
                         </div>
                         <div class="form-group">
                           <label for="exampleInputPassword1">Phone Number</label>
-                          <input type="text" v-model.number="order.phone" class="form-control" id="exampleInputPassword1" placeholder="Phone Number">
+                          <input type="number" v-model.number="order.phone" class="form-control" id="exampleInputPassword1" placeholder="Phone Number">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Email</label>
                             <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Enter Email" v-model='order.email'>
                             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                           </div>
-                        <!-- <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div> -->
                       </form>
                 </div>
                 <h3 class="row row-cols-1 row-cols-md-3" style="margin-left: 35%;">Final Order</h3>
@@ -113,20 +109,17 @@
                     <form>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Name:</label>
-                          <p>{{order.name}}</p>
+                          <p style="color: brown;">{{order.name}}</p>
                         </div>
                         <div class="form-group">
                           <label for="exampleInputPassword1">Phone Number:</label>
-                          <p>{{order.phone}}</p>
+                          <p style="color: brown;">{{order.phone}}</p>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Email:</label>
-                            <p>{{order.email}}</p>
-                          </div>
-                        <!-- <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div> -->
+                            <p style="color: brown;">{{order.email}}</p>
+                        </div>
+                        <button style="margin-left: 35%;" :hidden="order.name === '' && order.phone === ''" class="btn btn-primary" v-on:click='confirmOrder'>Submit</button>
                       </form>
                 </div>
             </div>
@@ -194,6 +187,9 @@
                     },
                     checkout(){
                         this.showProduct = this.showProduct ? false : true;
+                    },
+                    confirmOrder(){
+                        alert('Order placed successfully!');
                     }
                 }
             })
