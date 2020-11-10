@@ -68,7 +68,7 @@ let subjects = [
         price: 20,
         img:'https://www.mikerindersblog.org/wp-content/uploads/2017/03/scientology-3.jpg',
         stock: 2,
-        location: "Nahda",
+        location: "Masqoor",
         inCart: 0
     },
     {

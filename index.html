@@ -21,13 +21,24 @@
                     <li class="nav-item active">
                       <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <select v-on:change='sortEvent($event)' class="selectpicker" v-model="sortOption">
+                    <select v-on:change='sortEvent($event)' class="selectpicker" v-model="sortOption" style="margin-left: 7%;">
                         <li class="nav-item dropdown">    
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <option class="dropdown-item" value="" disabled selected><a>Sort by</a></option>
+                                <option class="dropdown-item" value="" disabled selected><a>Sort Options</a></option>
+                                <option class="dropdown-item"><a>None</a></option>
                                 <option class="dropdown-item"><a>Price</a></option>
                                 <option class="dropdown-item"><a>Stock</a></option>
                                 <option class="dropdown-item"><a>Location</a></option>
+                                <option class="dropdown-item"><a>A-Z</a></option>
+                                <option class="dropdown-item"><a>Z-A</a></option>
+                          </div>     
+                        </li>
+                    </select>
+                    <select v-on:change='sortByEvent($event)' class="selectpicker" v-model="sortBy" style="margin-left: 10%;">
+                        <li class="nav-item dropdown">    
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <option class="dropdown-item" value="" disabled selected><a>Sort By</a></option>
+                                <option class="dropdown-item"><a>None</a></option>
                                 <option class="dropdown-item"><a>Ascending</a></option>
                                 <option class="dropdown-item"><a>Descending</a></option>
                           </div>     
@@ -35,7 +46,7 @@
                     </select>
                     
                   </ul>
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left: 75%;" v-on:click='checkout()' :hidden='cart.length === 0'>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left: 65%;" v-on:click='checkout()' :hidden='cart.length === 0'>
                         Checkout
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
@@ -55,7 +66,7 @@
                             <h5 class="card-title">NAME: {{product.title}}</h5>
                             <p class="card-text">PRICE: {{product.price}} DHS</p>
                             <p class="card-text">LOCATION: {{product.location}}</p>
-                            <p class="card-text">SAPCES: {{product.stock}}</p>
+                            <p class="card-text">SPACES: {{product.stock}}</p>
                             <div class='text-center'>
                                 <button class='btn btn-primary' :hidden='product.stock === 0' v-on:click="addToCart(product)">Add to Cart</button>  
                             </div>
@@ -71,6 +82,7 @@
                             <th scope="col">Item</th>
                             <th scope="col">Price</th>
                             <th scope="col">Quantity</th>
+                            <th scope="col">Total Cost</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -79,6 +91,7 @@
                             <td style="text-align: center;">{{item.title}}</td>
                             <td style="text-align: center;">{{item.price}}</td>
                             <td style="text-align: center;">{{item.inCart}}</td>
+                            <td style="text-align: center;">{{item.price * (item.inCart)}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -91,15 +104,15 @@
                     <form>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Name</label>
-                          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name" v-model='order.name'>
+                          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter Name" v-model='order.name'>
                         </div>
                         <div class="form-group">
                           <label for="exampleInputPassword1">Phone Number</label>
-                          <input type="number" v-model.number="order.phone" class="form-control" id="exampleInputPassword1" placeholder="Phone Number">
+                          <input type="number" v-model.number="order.phone" class="form-control" placeholder="Phone Number">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Email</label>
-                            <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Enter Email" v-model='order.email'>
+                            <input type="email" class="form-control" placeholder="Enter Email" v-model='order.email'>
                             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                           </div>
                       </form>
@@ -119,13 +132,7 @@
                             <label for="exampleInputPassword1">Email:</label>
                             <p style="color: brown;">{{order.email}}</p>
                         </div>
-                        <div v-if="validInput">
-                            <button style="margin-left: 35%;" class="btn btn-primary" v-on:click='confirmOrder'>Submit</button>
-                        </div>
-                        
-                        <div id='finish' class="alert alert-success" role="alert" hidden>
-                            Order placed successfully!
-                          </div>
+                            <button style="margin-left: 35%;" :hidden='order.phone === ""' class="btn btn-primary" v-on:click='confirmOrder'>Submit</button>
                       </form>
                 </div>
             </div>
@@ -146,58 +153,147 @@
                         email:''
                     },
                     sortOption: '',
-                    productCount:''
+                    sortBy: ''
                 },
                 methods: {
                     sortEvent(event) {
                         //Low to High
                         if(event.target.value === "Price"){
-                            this.products.sort((a,b) => a.price > b.price ? 1:-1);
+                            var sortedArray = this.products.sort((a,b) => a.price > b.price ? 1:-1);
+                            
+                            if(event.target.value === "Price" && this.sortBy === 'Ascending'){
+                                sortedArray.sort((a,b)=> a.price > b.price ? 1:-1)
+                            }
+                            if(event.target.value === "Price" && this.sortBy === 'Descending'){
+                                sortedArray.sort((a,b)=> a.price < b.price ? 1:-1)
+                            }
                         }
                         //Low to high
                         if(event.target.value === "Stock"){
-                            this.products.sort((a,b) => a.stock > b.stock ? 1:-1);
+                            var sortedArray = this.products.sort((a,b) => a.stock > b.stock ? 1:-1);
+
+                            if(event.target.value === "Stock" && this.sortBy === 'Ascending'){
+                                sortedArray.sort((a,b)=> a.stock > b.stock ? 1:-1)
+                            }
+                            if(event.target.value === "Stock" && this.sortBy === 'Descending'){
+                                sortedArray.sort((a,b)=> a.stock < b.stock ? 1:-1)
+                            }
                         }
                         // A-Z
-                        if(event.target.value === "Ascending"){
-                            this.products.sort((a,b)=> a.title > b.title ? 1:-1);
+                        if(event.target.value === "A-Z"){
+                            var sortedArray = this.products.sort((a,b)=> a.title > b.title ? 1:-1);
+                            
+                            if(event.target.value === "A-Z" && this.sortBy === 'Ascending'){
+                                sortedArray.sort((a,b)=> a.title > b.title ? 1:-1)
+                            }
+                            if(event.target.value === "A-Z" && this.sortBy === 'Descending'){
+                                sortedArray.sort((a,b)=> a.title < b.title ? 1:-1)
+                            }
                         }
                         // Z-A
-                        if(event.target.value === "Descending"){
-                            this.products.sort((a,b)=> a.title < b.title ? 1:-1);
-                        }
-                        if(event.target.value === "Location"){
-                            this.products.sort((a,b)=> a.location > b.location ? 1:-1);
+                        if(event.target.value === "Z-A"){
+                            var sortedArray = this.products.sort((a,b)=> a.title < b.title ? 1:-1);
+
+                            if(event.target.value === "Z-A" && this.sortBy === 'Ascending'){
+                                sortedArray.sort((a,b)=> a.title > b.title ? 1:-1)
+                            }
+                            if(event.target.value === "Z-A" && this.sortBy === 'Descending'){
+                                sortedArray.sort((a,b)=> a.title < b.title ? 1:-1)
+                            }
                         }
 
+                        if(event.target.value === "Location"){
+                            var sortedArray = this.products.sort((a,b)=> a.location > b.location ? 1:-1);
+
+                            if(event.target.value === "Location" && this.sortBy === 'Ascending'){
+                                sortedArray.sort((a,b)=> a.location > b.location ? 1:-1)
+                            }
+                            if(event.target.value === "Location" && this.sortBy === 'Descending'){
+                                sortedArray.sort((a,b)=> a.location < b.location ? 1:-1)
+                            }
+                        }
+
+                    },sortByEvent(event){
+                        if(this.sortOption === "Price"){
+                            var sortedArray = this.products.sort((a,b) => a.price > b.price ? 1:-1);
+                            
+                            if(event.target.value === "Ascending" && this.sortOption === 'Price'){
+                                sortedArray.sort((a,b)=> a.price > b.price ? 1:-1)
+                            }
+                            if(event.target.value === "Descending" && this.sortOption === 'Price'){
+                                sortedArray.sort((a,b)=> a.price < b.price ? 1:-1)
+                            }
+                        }
+                        //Low to high
+                        if(this.sortOption === "Stock"){
+                            var sortedArray = this.products.sort((a,b) => a.stock > b.stock ? 1:-1);
+
+                            if(event.target.value === "Ascending" && this.sortOption === 'Stock'){
+                                sortedArray.sort((a,b)=> a.stock > b.stock ? 1:-1)
+                            }
+                            if(event.target.value === "Descending" && this.sortOption === 'Stock'){
+                                sortedArray.sort((a,b)=> a.stock < b.stock ? 1:-1)
+                            }
+                        }
+                        // A-Z
+                        if(this.sortOption === "A-Z"){
+                            var sortedArray = this.products.sort((a,b)=> a.title > b.title ? 1:-1);
+                            
+                            if(event.target.value === "Ascending" && this.sortOption === 'A-Z'){
+                                sortedArray.sort((a,b)=> a.title > b.title ? 1:-1)
+                            }
+                            if(event.target.value === "Descending" && this.sortOption === 'A-Z'){
+                                sortedArray.sort((a,b)=> a.title < b.title ? 1:-1)
+                            }
+                        }
+                        // Z-A
+                        if(this.sortOption === "Z-A"){
+                            var sortedArray = this.products.sort((a,b)=> a.title < b.title ? 1:-1);
+
+                            if(event.target.value === "Ascending" && this.sortOption === 'Z-A'){
+                                sortedArray.sort((a,b)=> a.title > b.title ? 1:-1)
+                            }
+                            if(event.target.value === "Descending" && this.sortOption === 'Z-A'){
+                                sortedArray.sort((a,b)=> a.title < b.title ? 1:-1)
+                            }
+                        }
+
+                        if(this.sortOption === "Location"){
+                            var sortedArray = this.products.sort((a,b)=> a.location > b.location ? 1:-1);
+
+                            if(event.target.value === "Ascending" && this.sortOption === 'Location'){
+                                sortedArray.sort((a,b)=> a.location > b.location ? 1:-1)
+                            }
+                            if(event.target.value === "Descending" && this.sortOption === 'Location'){
+                                sortedArray.sort((a,b)=> a.location < b.location ? 1:-1)
+                            }
+                        }
                     },
                     addToCart(product){
                         if(this.cart.includes(product)){
                             product.inCart++;
                             product.stock--;
                         }else{
-                            this.cart.push(product)
+                            this.cart.push(product);
+                            product.stock--;
+                            product.inCart++;
                         }
                     },
                     removeFromCart(item){
                         var indexOfItem = this.cart.indexOf(item);
-                        if(item.inCart === 1){
+                        if(item.inCart === 0){
                             this.cart.splice(indexOfItem, 1);
+                        }else{
+                            item.inCart--;
+                            item.stock++;
                         }
-                        item.inCart--;
-                        item.stock++;
+                        
                     },
                     checkout(){
                         this.showProduct = this.showProduct ? false : true;
                     },
                     confirmOrder(){
                         alert('Order placed successfully!');
-                    }
-                    
-                },
-                computed: {
-                    validInput: function(){
-                        return this.order.name.length > 2 && this.order.phone.length >= 9;
                     }
                 }
             })
