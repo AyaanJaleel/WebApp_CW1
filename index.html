@@ -21,7 +21,7 @@
                     <li class="nav-item active">
                       <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <select v-on:change='sortEvent' class="selectpicker">
+                    <select v-on:change='sortEvent($event)' class="selectpicker" v-model="sortOption">
                         <li class="nav-item dropdown">    
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <option class="dropdown-item" value="" disabled selected><a>Sort by</a></option>
@@ -78,7 +78,7 @@
                             <td><button class='btn btn-danger' v-on:click="removeFromCart(item)">Remove</button></td>
                             <td style="text-align: center;">{{item.title}}</td>
                             <td style="text-align: center;">{{item.price}}</td>
-                            <td class='quan' style="text-align: center;">0</td>
+                            <td style="text-align: center;">{{item.inCart}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -119,7 +119,13 @@
                             <label for="exampleInputPassword1">Email:</label>
                             <p style="color: brown;">{{order.email}}</p>
                         </div>
-                        <button style="margin-left: 35%;" :hidden="order.name === '' && order.phone === ''" class="btn btn-primary" v-on:click='confirmOrder'>Submit</button>
+                        <div v-if="validInput">
+                            <button style="margin-left: 35%;" class="btn btn-primary" v-on:click='confirmOrder'>Submit</button>
+                        </div>
+                        
+                        <div id='finish' class="alert alert-success" role="alert" hidden>
+                            Order placed successfully!
+                          </div>
                       </form>
                 </div>
             </div>
@@ -138,7 +144,9 @@
                         name: '',
                         phone: '',
                         email:''
-                    }
+                    },
+                    sortOption: '',
+                    productCount:''
                 },
                 methods: {
                     sortEvent(event) {
@@ -164,32 +172,32 @@
 
                     },
                     addToCart(product){
-                        var quan = document.querySelectorAll('.quan');
-                        var productIndex = this.cart.indexOf(product);
                         if(this.cart.includes(product)){
-                            quan[productIndex].innerText++;
+                            product.inCart++;
                             product.stock--;
                         }else{
-                            this.cart.push(product);
-                            quan[productIndex].innerText++;               
-                            product.stock--;
+                            this.cart.push(product)
                         }
                     },
                     removeFromCart(item){
-                        var quan = document.querySelectorAll('.quan');
                         var indexOfItem = this.cart.indexOf(item);
-                        for(var i=0; i < quan.length;i++){
-                            if(quan[i].innerText === '1'){
-                                this.cart.splice(indexOfItem, 1);
-                            }               
+                        if(item.inCart === 1){
+                            this.cart.splice(indexOfItem, 1);
                         }
-                        quan[indexOfItem].innerText--;
+                        item.inCart--;
+                        item.stock++;
                     },
                     checkout(){
                         this.showProduct = this.showProduct ? false : true;
                     },
                     confirmOrder(){
                         alert('Order placed successfully!');
+                    }
+                    
+                },
+                computed: {
+                    validInput: function(){
+                        return this.order.name.length > 2 && this.order.phone.length >= 9;
                     }
                 }
             })

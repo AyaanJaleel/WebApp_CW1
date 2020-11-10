@@ -5,7 +5,8 @@ let subjects = [
         price: 500,
         img:'https://edtechmagazine.com/k12/sites/edtechmagazine.com.k12/files/styles/cdw_hero/public/articles/EdTech/201708/9george_math.jpg?itok=2HKdsRtP',
         stock: 0,
-        location: "Abu Shagara"
+        location: "Abu Shagara",
+        inCart: 0
     },
     {
         id: 1002,
@@ -13,7 +14,8 @@ let subjects = [
         price: 100,
         img:'https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/c1a8f867794621.5b464c1e80279.png',
         stock: 5,
-        location: "Bur Dubai"
+        location: "Bur Dubai",
+        inCart: 0
     },
     {
         id: 1003,
@@ -21,7 +23,8 @@ let subjects = [
         price: 250 ,
         img:'https://openlab.citytech.cuny.edu/recreational-/files/2014/12/cc_logo.00013-1.png',
         stock: 5,
-        location: "Masqoor"
+        location: "Masqoor",
+        inCart: 0
     },
     {
         id: 1004,
@@ -29,7 +32,8 @@ let subjects = [
         price: 200 ,
         img:'https://shsoracle.org/wp-content/uploads/2017/11/Screen-Shot-2017-11-10-at-2.38.40-PM.png',
         stock: 5,
-        location: "Ras Al Khaimah"
+        location: "Ras Al Khaimah",
+        inCart: 0
     },
     {
         id: 1005,
@@ -37,7 +41,8 @@ let subjects = [
         price: 50,
         img:'https://image.freepik.com/free-vector/music-club-neon-logo-sign-emblem-symbol-poster_118419-90.jpg',
         stock: 5,
-        location: "Umm Al Quwain"
+        location: "Umm Al Quwain",
+        inCart: 0
     },
     {
         id: 1006,
@@ -45,7 +50,8 @@ let subjects = [
         price: 300 ,
         img:'https://accountantsmillionaire.club/wp-content/uploads/Accountants-Millionaires-Club-Main-Logo.png',
         stock: 5,
-        location: "Knowledge Village"
+        location: "Knowledge Village",
+        inCart: 0
     },
     {
         id: 1007,
@@ -53,7 +59,8 @@ let subjects = [
         price: 450 ,
         img:'https://www.mineplex.com/data/teams/covers/0/79.jpg?1536867642',
         stock: 1,
-        location: "Burjuman"
+        location: "Burjuman",
+        inCart: 0
     },
     {
         id: 1008,
@@ -61,7 +68,8 @@ let subjects = [
         price: 20,
         img:'https://www.mikerindersblog.org/wp-content/uploads/2017/03/scientology-3.jpg',
         stock: 2,
-        location: "Nahda"
+        location: "Nahda",
+        inCart: 0
     },
     {
         id: 1009,
@@ -69,7 +77,8 @@ let subjects = [
         price: 350,
         img:'https://nphistoryclub.weebly.com/uploads/6/1/6/1/61611671/history_club_logo_2.png',
         stock: 5,
-        location: "Qiyadah"
+        location: "Qiyadah",
+        inCart: 0
     },
     {
         id: 1010,
@@ -77,7 +86,8 @@ let subjects = [
         price: 200,
         img:'https://bloximages.newyork1.vip.townnews.com/hickoryrecord.com/content/tncms/assets/v3/editorial/3/1c/31c95f06-7907-5d67-9b64-57dee8eb4bfc/58dd975f3d7ac.image.jpg?resize=1024%2C782',
         stock: 4,
-        location: "Abu Bakr Al Siddique"
+        location: "Abu Bakr Al Siddique",
+        inCart: 0
     },
     {
         id: 1011,
@@ -85,7 +95,8 @@ let subjects = [
         price: 650,
         img:'https://pbs.twimg.com/profile_images/533260642858176512/pD3g2L5r_400x400.jpeg',
         stock: 3,
-        location: "Barsha"
+        location: "Barsha",
+        inCart: 0
     },
     {
         id: 1012,
@@ -93,6 +104,7 @@ let subjects = [
         price: 150,
         img:'https://pbs.twimg.com/profile_images/1539897372/ec_logo.jpg',
         stock: 3,
-        location: "Jafaliya"
+        location: "Jafaliya",
+        inCart: 0
     },
 ];
