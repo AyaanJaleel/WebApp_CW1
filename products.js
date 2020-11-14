@@ -4,7 +4,7 @@ let subjects = [
         title: "Math Club",
         price: 500,
         img:'https://edtechmagazine.com/k12/sites/edtechmagazine.com.k12/files/styles/cdw_hero/public/articles/EdTech/201708/9george_math.jpg?itok=2HKdsRtP',
-        stock: 0,
+        stock: 5,
         location: "Abu Shagara",
         inCart: 0
     },
@@ -58,7 +58,7 @@ let subjects = [
         title: "Programming Club",
         price: 450 ,
         img:'https://www.mineplex.com/data/teams/covers/0/79.jpg?1536867642',
-        stock: 1,
+        stock: 5,
         location: "Burjuman",
         inCart: 0
     },
@@ -67,7 +67,7 @@ let subjects = [
         title: "Scientology Club",
         price: 20,
         img:'https://www.mikerindersblog.org/wp-content/uploads/2017/03/scientology-3.jpg',
-        stock: 2,
+        stock: 5,
         location: "Masqoor",
         inCart: 0
     },
@@ -85,7 +85,7 @@ let subjects = [
         title: "PE Club",
         price: 200,
         img:'https://bloximages.newyork1.vip.townnews.com/hickoryrecord.com/content/tncms/assets/v3/editorial/3/1c/31c95f06-7907-5d67-9b64-57dee8eb4bfc/58dd975f3d7ac.image.jpg?resize=1024%2C782',
-        stock: 4,
+        stock: 5,
         location: "Abu Bakr Al Siddique",
         inCart: 0
     },
@@ -94,7 +94,7 @@ let subjects = [
         title: "Law Club",
         price: 650,
         img:'https://pbs.twimg.com/profile_images/533260642858176512/pD3g2L5r_400x400.jpeg',
-        stock: 3,
+        stock: 5,
         location: "Barsha",
         inCart: 0
     },
@@ -103,7 +103,7 @@ let subjects = [
         title: "Entrepreneurship Club",
         price: 150,
         img:'https://pbs.twimg.com/profile_images/1539897372/ec_logo.jpg',
-        stock: 3,
+        stock: 5,
         location: "Jafaliya",
         inCart: 0
     },
