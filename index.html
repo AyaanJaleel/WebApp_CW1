@@ -104,6 +104,10 @@
                           <label for="exampleInputPassword1">Phone Number:</label>
                           <span>{{order.phone}}</span>
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Total Price:</label>
+                            <span>{{totalPrice}}</span>
+                          </div>
                             <button style="margin-left: 35%;" :hidden='order.phone === ""' class="btn btn-primary" v-on:click='confirmOrder'>Submit</button>
                       </form>
                 </div>
@@ -115,7 +119,6 @@
                             <th scope="col">Item</th>
                             <th scope="col">Price</th>
                             <th scope="col">Quantity</th>
-                            <th scope="col">Total Cost</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -124,7 +127,6 @@
                             <td style="text-align: center;">{{item.title}}</td>
                             <td style="text-align: center;">{{item.price}}</td>
                             <td style="text-align: center;">{{item.inCart}}</td>
-                            <td style="text-align: center;">{{item.price * (item.inCart)}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -138,6 +140,7 @@
                     sitename: "After School Activities",
                     products: subjects,
                     cart: [],
+                    prices: [],
                     showProduct: true,
                     order: {
                         name: '',
@@ -236,21 +239,33 @@
                             product.stock--;
                             product.inCart++;
                         }
+                        this.prices.push(product.price);
                     },
                     removeFromCart(item){
                         var indexOfItem = this.cart.indexOf(item);
+                        var indexOfPrice = this.prices.indexOf(item.price);
                         if(item.inCart === 0){
-                            this.cart.splice(indexOfItem, 1);
+                            this.cart.splice(indexOfItem, 1);   
                         }else{
                             item.inCart--;
                             item.stock++;
-                        }                  
+                        }
+                        this.prices.splice(indexOfPrice, 1);                        
                     },
                     checkout(){
                         this.showProduct = this.showProduct ? false : true;
                     },
                     confirmOrder(){
                         alert('Order placed successfully!');
+                    }
+                },
+                computed:{
+                    totalPrice(){
+                        var sum=0;
+                        for(var i=0; i < this.prices.length; i++){
+                            sum += this.prices[i];
+                        }
+                        return sum;
                     }
                 }
             })
